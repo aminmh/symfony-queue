@@ -1,0 +1,69 @@
+version: '3'
+
+services:
+  php:
+    container_name: symfony-test
+    build:
+      context: .
+      dockerfile: Dockerfile
+    tty: true
+    restart: unless-stopped
+    networks:
+      - symfony-test
+    volumes:
+      - ./:/var/www
+      - ./Dev-ops/php/conf.d/local.ini://usr/local/etc/php/conf.d/local.ini
+  
+  web-server:
+    image: nginx:stable
+    container_name: symfony-test-web-server
+    build:
+      context: ./Dev-ops/nginx
+      dockerfile: Dockerfile
+    tty: true
+    restart: unless-stopped
+    networks:
+      - symfony-test
+    volumes:
+      - ./:/var/www
+      - ./Dev-ops/nginx/conf.d/:/etc/nginx/conf.d/
+      - ./Dev-ops/nginx/logs/:/var/log/nginx/
+    ports:
+      - "80:80"
+  
+  redis:
+    image: redis:7-alpine
+    tty: true
+    restart: unless-stopped
+    networks:
+      - symfony-test
+    volumes:
+      - ./Dev-ops/redis/data/:/data
+    ports:
+      - "6379:6379"
+        
+
+  ###> doctrine/doctrine-bundle ###
+  database:
+    image: mariadb:lts-jammy
+    container_name: symfony-test-db
+    volumes:
+      - ./Dev-ops/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ${DB_DATABASE:-symfony-test}
+      MYSQL_USER: ${DB_USERNAME:-user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-!ChangeMe!}
+    command: "--character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"
+    restart: unless-stopped
+    ports:
+      - "3307:3306"
+###< doctrine/doctrine-bundle ###
+
+###> doctrine/doctrine-bundle ###
+volumes:
+  db-data:
+networks:
+  symfony-test:
+    driver: bridge
+###< doctrine/doctrine-bundle ###

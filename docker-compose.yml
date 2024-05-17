@@ -55,6 +55,8 @@ services:
       MYSQL_USER: ${DB_USERNAME:-user}
       MYSQL_PASSWORD: ${DB_PASSWORD:-!ChangeMe!}
     command: "--character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"
+    networks:
+      - symfony-test
     restart: unless-stopped
     ports:
       - "3307:3306"

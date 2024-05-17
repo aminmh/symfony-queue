@@ -10,13 +10,18 @@
         "doctrine/doctrine-bundle": "^2.8",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.14",
+        "phpdocumentor/reflection-docblock": "^5.4",
+        "phpstan/phpdoc-parser": "^1.29",
         "symfony/console": "6.2.*",
+        "symfony/dependency-injection": "6.4.*",
         "symfony/dotenv": "6.2.*",
+        "symfony/finder": "6.4.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "^6.4.7",
-        "symfony/dependency-injection": "6.4.*",
-        "symfony/finder": "6.4.*",
+        "symfony/property-access": "6.4.*",
+        "symfony/property-info": "6.4.*",
         "symfony/runtime": "6.2.*",
+        "symfony/serializer": "6.4.*",
         "symfony/yaml": "6.2.*"
     },
     "config": {
@@ -70,6 +75,7 @@
     },
     "require-dev": {
         "symfony/debug-bundle": "v6.4.7",
+        "symfony/maker-bundle": "^1.50",
         "symfony/stopwatch": "v6.4.7",
         "symfony/web-profiler-bundle": "v6.4.7"
     }

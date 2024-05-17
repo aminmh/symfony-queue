@@ -10,4 +10,5 @@
 /vendor/
 /Dev-ops/nginx/logs/
 /Dev-ops/mysql/
+/Dev-ops/redis/
 ###< symfony/framework-bundle ###

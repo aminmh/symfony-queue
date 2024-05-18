@@ -29,4 +29,9 @@ class ClientRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function createExportQuery(): \Doctrine\ORM\QueryBuilder
+    {
+        return $this->createQueryBuilder('client');
+    }
 }
